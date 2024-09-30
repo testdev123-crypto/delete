@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:  # Set environment variables for the entire job
+      NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
     steps:
       - name: Checkout code
@@ -30,6 +32,16 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Check NVD API Key
+        run: |
+          if [ -z "${NVD_API_KEY}" ]; then
+            echo "NVD API Key is not set."
+          else
+            echo "NVD API Key is set."
+          fi
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+
 
       - name: Build with Maven
         run: mvn clean install -Dspring.profiles.active=h2
@@ -46,8 +58,6 @@ jobs:
             ${{ runner.os }}-dependency-check-
 
       - name: Run SonarQube analysis
-        env:
-          NVD_API_KEY: f84ecb4c-c3c6-497a-acb7-b92abb2b4dc6    # Use NVD API Key from GitHub Secrets
         run: |
           mvn clean verify sonar:sonar \
             -Dspring.profiles.active=h2 \

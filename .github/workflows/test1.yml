@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:  # Set environment variables for the entire job
-      NVD_API_KEY: f84ecb4c-c3c6-497a-acb7-b92abb2b4dc6  
+      NVD_API_KEY: 67d4d798-bdd5-4053-ae1a-ce55bc860775   
 
     steps:
       - name: Checkout code
@@ -34,7 +34,7 @@ jobs:
           java-version: '17'
   
       - name: Build with Maven
-        run: mvn clean install -Dspring.profiles.active=h2 --nvdApiKey=f84ecb4c-c3c6-497a-acb7-b92abb2b4dc6  
+        run: mvn clean install -Dspring.profiles.active=h2 -Ddependency-check.nvd.apiKey=67d4d798-bdd5-4053-ae1a-ce55bc860775  
 
       - name: Run Tests with Maven
         run: mvn test -Dspring.profiles.active=h2
@@ -57,4 +57,4 @@ jobs:
             -Dsonar.login=sqp_1f73cb3964e85b4d6657cf9b8e85fb001611d4d7 \
             -Dsonar.dependencyCheck.summarize=true \
             -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html \
-            --nvdApiKey=f84ecb4c-c3c6-497a-acb7-b92abb2b4dc6  
+            -Ddependency-check.nvd.apiKey=67d4d798-bdd5-4053-ae1a-ce55bc860775   

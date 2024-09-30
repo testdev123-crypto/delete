@@ -1,4 +1,4 @@
-name: Maven CI with H2
+name: Maven CI with H2 d
 
 on:
   push:

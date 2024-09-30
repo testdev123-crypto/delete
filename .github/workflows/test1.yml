@@ -1,0 +1,64 @@
+name: Maven CI with H2
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: null
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 3: Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # Step 4: Build with Maven using H2 profile
+      - name: Build with Maven
+        run: mvn clean install -Dspring.profiles.active=h2
+
+      # Step 5: Run Tests with Maven using H2 profile
+      - name: Run Tests with Maven
+        run: mvn test -Dspring.profiles.active=h2
+
+      # Step 6: Cache OWASP Dependency-Check data
+      - name: Cache OWASP Dependency-Check data
+        uses: actions/cache@v3
+        with:
+          path: /usr/local/bin/dependency-check/data
+          key: ${{ runner.os }}-dependency-check-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-dependency-check-
+
+      # Step 7: Run SonarQube analysis with Dependency-Check and H2 profile
+      - name: Run SonarQube analysis
+        run: |
+          mvn clean verify sonar:sonar \
+            -Dspring.profiles.active=h2 \
+            -Dsonar.projectKey=spring \
+            -Dsonar.projectName='spring' \
+            -Dsonar.host.url=https://f296-59-145-123-10.ngrok-free.app \
+            -Dsonar.login=sqp_1f73cb3964e85b4d6657cf9b8e85fb001611d4d7 \
+            -Dsonar.dependencyCheck.summarize=true \
+            -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html

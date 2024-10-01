@@ -1,5 +1,5 @@
 
-name: Maven CI with H2 123
+name: Maven CI with H2 final
 on:
   push:
     branches:

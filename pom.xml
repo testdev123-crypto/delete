@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -199,14 +199,21 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<format>HTML</format>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+					<dataDirectory>${project.build.directory}/dependency-check-data</dataDirectory>
+					<suppressionFile>${project.basedir}/dependency-check-suppression.xml</suppressionFile>
+					<nvd>
+						<apiKey>67d4d798-bdd5-4053-ae1a-ce55bc860775</apiKey>
+					</nvd>
+				</configuration>
 			</plugin>
-
-
 		</plugins>
 	</build>
 
 	<repositories>
-		
+
 
 		<repository>
 			<id>snmp4j-repo</id>

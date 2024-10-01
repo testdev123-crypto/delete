@@ -53,7 +53,7 @@ jobs:
             -Dspring.profiles.active=h2 \
             -Dsonar.projectKey=spring \
             -Dsonar.projectName='spring' \
-            -Dsonar.host.url=https://fbe0-59-145-123-10.ngrok-free.app \
+            -Dsonar.host.url=https://9d81-59-145-123-10.ngrok-free.app \
             -Dsonar.login=sqp_1f73cb3964e85b4d6657cf9b8e85fb001611d4d7 \
             -Dsonar.dependencyCheck.summarize=true \
             -Dsonar.dependencyCheck.htmlReportPath=target/dependency-check-report.html \

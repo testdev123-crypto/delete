@@ -199,15 +199,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<format>HTML</format>
-					<outputDirectory>${project.build.directory}</outputDirectory>
-					<dataDirectory>${project.build.directory}/dependency-check-data</dataDirectory>
-					<suppressionFile>${project.basedir}/dependency-check-suppression.xml</suppressionFile>
-					<nvd>
-						<apiKey>67d4d798-bdd5-4053-ae1a-ce55bc860775</apiKey>
-					</nvd>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

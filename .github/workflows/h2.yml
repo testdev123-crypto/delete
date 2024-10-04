@@ -32,10 +32,10 @@ jobs:
           java-version: '17'
   
       - name: Build with Maven
-        run: mvn clean install -Dspring.profiles.active=h3   
+        run: mvn clean install -Dspring.profiles.active=sonarqube   
 
       - name: Run Tests with Maven
-        run: mvn test -Dspring.profiles.active=h3
+        run: mvn test -Dspring.profiles.active=sonarqube
 
       - name: Cache OWASP Dependency-Check data
         uses: actions/cache@v3
@@ -48,7 +48,7 @@ jobs:
       - name: Run SonarQube analysis
         run: |
           mvn clean verify sonar:sonar \
-            -Dspring.profiles.active=h3 \
+            -Dspring.profiles.active=sonarqube \
             -Dsonar.projectKey=spring \
             -Dsonar.projectName='spring' \
             -Dsonar.host.url=https://732b-59-145-123-10.ngrok-free.app \

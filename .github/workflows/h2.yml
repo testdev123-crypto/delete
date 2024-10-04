@@ -1,5 +1,5 @@
 
-name: Maven CI with H2 final
+name: workflow-sonarqube
 on:
   push:
     branches:

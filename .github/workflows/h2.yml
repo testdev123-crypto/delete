@@ -47,6 +47,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-dependency-check-
 
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.11.0
+        with:
+          token: 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
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+          target: 'https://www.zaproxy.org/'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
       - name: Run SonarQube analysis
         run: |
           mvn clean verify sonar:sonar \
